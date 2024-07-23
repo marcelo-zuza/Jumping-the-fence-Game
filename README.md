@@ -27,5 +27,5 @@ https://play.unity.com/en/games/1125b996-e04b-444f-ab41-5ac281102727/jumpingman
 
 ## Authors
 
-* **Marcelo Zuza** - *Initial work* - [your-username](https://github.com/marcelo-zuza)
+* **Marcelo Zuza** [marcelo-zuza](https://github.com/marcelo-zuza)
 
