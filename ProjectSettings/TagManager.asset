@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - GameOverPanel
   layers:
   - Default
   - TransparentFX

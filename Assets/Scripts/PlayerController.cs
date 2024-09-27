@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,10 +13,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip crashSound;
     private AudioSource playerAudio;
 
-    public float jumpForce;
-    public float gravityModifier;
-    public bool isOnGround = true;
+    [SerializeField] float jumpForce;
+    [SerializeField] float gravityModifier;
+    private bool isOnGround = true;
     public bool gameOver = false;
+
+    [SerializeField]
+    public GameObject gameOverAlert;
     
 
     void Start()
@@ -24,6 +28,7 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         Physics.gravity *= gravityModifier;
+        
         
     }
 
@@ -38,6 +43,15 @@ public class PlayerController : MonoBehaviour
             dirtParticle.Stop();
             playerAudio.PlayOneShot(jumpSound, 1.0f);
         };
+
+        if(gameOver)
+        {
+            if(Input.GetKeyDown(KeyCode.Return))
+            {
+                gameOver = false;
+                SceneManager.LoadScene(0);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -49,12 +63,16 @@ public class PlayerController : MonoBehaviour
         }else if(collision.gameObject.CompareTag("Obstacle"))
         {
             gameOver = true;
-            Debug.Log("Game Over!");
             playerAnim.SetBool("Death_b", true);
             playerAnim.SetInteger("DeathType_int", 1);
             explosionParticle.Play();
             dirtParticle.Stop();
             playerAudio.PlayOneShot(crashSound);
+            
+
+            gameOverAlert.SetActive(true);
+
+            
         }
 
     }
